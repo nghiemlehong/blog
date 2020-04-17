@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-export  class Admin extends Component {
+export  class AdminComponent extends Component {
     render() {
         return (
-            <div>ADMIN-DASHBOARD-LÊ HỒNG NGHIỆM</div>
+           <div>Le hong nghiem </div>
         );
     }
 }

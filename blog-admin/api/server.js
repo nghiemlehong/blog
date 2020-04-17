@@ -1,10 +1,21 @@
-const http = require('http');
-const app = require('./app');
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const port = process.env.PORT || 9999;
+require('./app/helpers/DB');
+const {routerUser} = require('./app/routes/user.router');
+const cors = require('cors');
 
-const PORT = process.env.PORT || 9999;
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-const server = http.createServer(app);
-
-server.listen(PORT, () => {
-    return console.log('Server started');
+app.use('/user', routerUser);
+app.get('/', (req,res)=>
+{
+    res.send("<h1>Lê Hồng Nghiệm</h1>")
 })
+
+app.listen(port, function() {
+    console.log('Server is running on Port:', port);
+});
