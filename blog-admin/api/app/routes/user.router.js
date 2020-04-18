@@ -48,4 +48,12 @@ routerUser.post('/signin', async(req, res) => {
 
 });
 
+routerUser.post('/check', async (req, res)=>{
+    try {
+        
+    } catch (error) {
+        
+    }
+});
+
 module.exports = { routerUser };

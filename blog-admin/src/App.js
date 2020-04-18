@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {AdminComponent} from './component/Admin';
-import {Login} from './component/Login';
+import {Login} from './component/Login/Login';
 import {Users} from './component/Users';
 import {Table} from './component/Table'
 import './App.css'
