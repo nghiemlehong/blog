@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import axios from 'axios';
+import API from '../api/api';
 import {Ring} from 'react-awesome-spinners';
 import {Redirect} from 'react-router-dom'
-import { connect } from 'react-redux';
- export class LoginComponent extends Component {
+ export class Login extends Component {
      constructor(props)
      {
          super(props);
@@ -11,39 +10,54 @@ import { connect } from 'react-redux';
              txtUsername : "",
              txtPass : "",
              loading : false,
+             checkLogin : false
           
          }
         this.loginAdmin = this.loginAdmin.bind(this);
      }
+    componentDidMount(){
+        const token = localStorage.getItem('token');
+        if(!token) this.setState({checkLogin:false})
+        else
+        {
+            const objectRequest = {
+                headers : {
+                   token
+                }
+            }
+            API.get("admin/user/getAll",objectRequest)
+            .then(res=>{
+                this.setState({checkLogin:true});
+            })
+            .catch(err=>alert(err))
+        }
+
+    }
      loginAdmin()
      {
          const {txtPass, txtUsername} = this.state;
-         const {dispatch} = this.props;
          this.setState({loading: true});
-         const url = "https://blog-nghiemle.herokuapp.com/user/signin-admin";
-         axios.post(url, {username: txtUsername, password: txtPass})
+         API.post("admin/login", {username: txtUsername, password: txtPass})
          .then(res=>{
             this.setState({ loading: false });
-            dispatch({type:"LOGIN"});
-           
+            localStorage.setItem('token',res.data.admin.token);
+            this.setState({checkLogin : true});
          })
          .catch(err=>{
              this.setState({loading:false});
-            
-           
          })
       
          
      }
     render() {
-        if(this.props.checkLogin) return <Redirect to = "/admin"/>
+       if(this.state.checkLogin) return <Redirect to = "/users" />
         return (
             <div className="limiter">
                 <div className="container-login100">
                     <div className="wrap-login100 p-t-50 p-b-90">
                         <form className="login100-form validate-form flex-sb flex-w">
                             <span className="login100-form-title p-b-51">
-                                Login
+                                Login Admin
                             </span>
                             <div className="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
                                 <input 
@@ -102,5 +116,4 @@ import { connect } from 'react-redux';
     }
 }
 
-const mapState = state => ({checkLogin : state.checkLogin});
-export const Login = connect(mapState)(LoginComponent);
+

@@ -5,9 +5,9 @@ export  class Table extends Component {
             <table class="table">
                 <thead>
                     <tr>
-                        <th>STT</th>
+                        <th>ID</th>
+                        <th>Email</th>
                         <th>Name</th>
-                        <th>Gender</th>
                     </tr>
                 </thead>
                 <tbody>

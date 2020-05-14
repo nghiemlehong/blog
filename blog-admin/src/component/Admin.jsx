@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import {Link,Redirect} from 'react-router-dom'
-import { connect } from 'react-redux';
-export  class AdminComponent extends Component {
+import {Link} from 'react-router-dom'
+export  class Admin extends Component {
     render() {
     
         return (
@@ -16,5 +15,4 @@ export  class AdminComponent extends Component {
     }
 }
 
- const mapState = state => ({checkLogin : state.checkLogin})
- export const Admin = connect(mapState)(AdminComponent);
+

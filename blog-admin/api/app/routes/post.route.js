@@ -4,16 +4,24 @@ const {mustBeUser} = require('../routes/mustBeUser.middleware');
 
 const postRouter = Router();
 
-postRouter.use(mustBeUser);
 
 postRouter.get('/',(req,res)=>{
     PostService.getAll()
     .then(posts => res.send({success : true, posts}));
 });
 
+postRouter.get('/:_id',(req,res)=>{
+    const {_id} = req.params;
+    PostService.getOne(_id)
+    .then(post=>res.send({success:true, post}))
+    .catch(res.onError)
+})
+
+postRouter.use(mustBeUser);
+
 postRouter.post('/',(req,res)=>{
-    const {title,content} = req.body;
-    PostService.createPost(req.idUser,title,content)
+    const {title,content,idTag} = req.body;
+    PostService.createPost(req.idUser,idTag,title,content)
     .then(postInfo => res.send({success : true, post : postInfo}))
     .catch(res.onError)
 });

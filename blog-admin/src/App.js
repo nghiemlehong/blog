@@ -5,6 +5,7 @@ import {Login} from './component/Login';
 import {Users} from './component/Users';
 import {Table} from './component/Table'
 import {Logout} from './component/Logout'
+import {NotFound} from './component/NotFound'
 import './css/main.css';
 import './css/util.css';
 import {Route, Switch} from 'react-router-dom'
@@ -20,6 +21,7 @@ function App() {
         <Route exact path="/table" component={Table}/>
         <Route exact path="/admin" component={Admin}/>
         <Route exact path="/logout" component={Logout}/>
+        <Route exact path="/404" component={NotFound}/>
       </Switch>
     </Provider>
      

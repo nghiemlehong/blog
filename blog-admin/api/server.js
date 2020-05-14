@@ -6,6 +6,8 @@ require('./app/helpers/DB');
 const {userRouter} = require('./app/routes/user.route');
 const {postRouter} = require('./app/routes/post.route');
 const {commentRouter} = require('./app/routes/comment.route')
+const {adminRouter} = require('./app/routes/admin.route')
+const {tagRouter} = require('./app/routes/tag.route')
 const cors = require('cors');
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -21,6 +23,8 @@ app.use((req, res, next) => {
 app.use('/user', userRouter);
 app.use('/post',postRouter);
 app.use('/comment',commentRouter);
+app.use('/admin', adminRouter );
+app.use('/tag',tagRouter);
 app.get('/', (req,res)=>
 {
     res.send("<h1>Lê Hồng Nghiệm</h1>")
