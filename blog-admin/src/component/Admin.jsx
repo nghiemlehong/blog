@@ -6,8 +6,6 @@ export  class Admin extends Component {
         return (
             <div>
                 <div>ĐÂY LÀ TRANG ADMIN, CHỈ CÓ ADMIN MỚI NHÌN THẤY </div>
-
-                
                 <Link to ="/logout">LOG OUT</Link>
             </div>
            

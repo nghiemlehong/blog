@@ -35,7 +35,9 @@ export  class Users extends Component {
     render() {
         if(!this.state.checkLogin) return <Redirect to ="/404" />
         return (
+            
             <div>
+                <button type="button" class="btn btn-primary">Logout</button>
                     <table class="table">
                     <thead>
                         <tr>

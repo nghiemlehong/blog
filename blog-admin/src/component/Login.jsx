@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import API from '../api/api';
 import {Ring} from 'react-awesome-spinners';
 import {Redirect} from 'react-router-dom'
- export class Login extends Component {
+export class Login extends Component {
      constructor(props)
      {
          super(props);

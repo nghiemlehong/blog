@@ -25,8 +25,6 @@ postRouter.get('/:_id',(req,res)=>{
     .catch(res.onError)
 })
 
-
-
 postRouter.use(mustBeUser);
 
 postRouter.patch('/', (req, res) => {
@@ -42,9 +40,9 @@ postRouter.post('/',multer.single('file'),(req,res)=>{
     .catch(res.onError)
 });
 
-postRouter.put('/:_id',(req,res)=>{
-    const {content, date,mainContent} = req.body;
-    PostService.updatePost(req.idUser,req.params._id,date, mainContent,content)
+postRouter.put('/:_id',multer.single('file'),(req,res)=>{
+    const {content,title, idTag, date,mainContent} = req.body;
+    PostService.updatePost(req.idUser,req.params._id,idTag,title,date, mainContent,content, req.file)
     .then(post => res.send({success:true,post}))
     .catch(res.onError);
 })

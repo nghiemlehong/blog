@@ -12,7 +12,7 @@ class CommentService{
         const post = await Post.findByIdAndUpdate(idPost,updateObj);
         if(!post) throw  new MyError('CANNOT_FIND_POST',404);
         await comment.save();
-        return Comment.populate(comment,{path:'author', select:'name'});
+        return Comment.populate(comment,{path:'author', select:'name and avatar'});
     }
 
     static async updateComment(idUser,_id,content)
@@ -21,7 +21,7 @@ class CommentService{
         const query = {_id,author:idUser};
         const comment = await Comment.findOneAndUpdate(query,{content},{new :true});
         if(!comment) throw new MyError('CANNOT_FIND_COMMENT',404);
-        return comment;
+        return Comment.populate(comment,{path:'author', select:'name and avatar'});
     }
 
     static async removeComment(idUser, _id) {
@@ -30,7 +30,7 @@ class CommentService{
         const comment = await Comment.findOneAndRemove(query);
         if (!comment) throw new MyError('CANNOT_FIND_COMMENT', 404);
         await Post.findByIdAndUpdate(comment.post, { $pull: { comments: _id } });
-        return comment;        
+        return Comment.populate(comment,{path:'author', select:'name and avatar'});        
     }
 
     static async likeComment(idUser, _id) {
@@ -38,7 +38,7 @@ class CommentService{
         const queryObject = { _id, fans: { $ne: idUser } };
         const comment = await Comment.findOneAndUpdate(queryObject, { $addToSet: { fans: idUser } }, { new: true });
         if (!comment) throw new MyError('CANNOT_FIND_COMMENT', 404);
-        return comment;
+        return Comment.populate(comment,{path:'author', select:'name and avatar'});   
     }
 
     static async dislikeComment(idUser, _id) {
@@ -46,7 +46,7 @@ class CommentService{
         const queryObject = { _id, fans: { $eq: idUser } };
         const comment = await Comment.findOneAndUpdate(queryObject, { $pull: { fans: idUser } }, { new: true });
         if (!comment) throw new MyError('CANNOT_FIND_COMMENT', 404);
-        return comment;
+        return Comment.populate(comment,{path:'author', select:'name and avatar'});   
     }
 
 }

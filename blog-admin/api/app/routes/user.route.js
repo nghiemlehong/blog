@@ -6,6 +6,7 @@ const fs = require('fs');
 const { promisify } = require('util')
 
 const Multer = require('multer');
+const { emit } = require('process');
 
 
 const deleteFile = async (file) => {
@@ -35,19 +36,6 @@ userRouter.post('/signup', multer.single('file'), (req, res) => {
                 res.status(error.statusCode || 500).send(body);
             })
 });
-// userRouter.post('/upload',multer.single('file'), (req,res) => {
-//     console.log('Upload Image');
-//     let file = req.file;
-//     if (file) {
-//       uploadImageToStorage(file).then((success) => {
-//         res.status(200).send({
-//           status: 'success'
-//         });
-//       }).catch((error) => {
-//         console.error(error);
-//       });
-//     }
-//   });
 
 userRouter.post('/signin', async(req, res) => {
     const { email, plainPassword } = req.body;
@@ -61,5 +49,19 @@ userRouter.post('/check', mustBeUser, (req, res)=>{
    .then(user => res.send({success : true , user}))
    .catch(res.onError);
 });
+
+userRouter.put('/', mustBeUser,  multer.single('file'),(req, res) => {
+    const { email,name  } = req.body;
+    UserService.updateUser(req.idUser, email, name , req.file)
+    .then(user => res.send({success : true , user}))
+    .catch(res.onError); 
+})
+
+userRouter.post('/updatePass', mustBeUser, (req, res) => {
+    const { oldPassword, newPassword } = req.body;
+    UserService.updatePassword(req.idUser, oldPassword, newPassword)
+    .then(user => res.send({success : true , user}))
+    .catch(res.onError); 
+})
 
 module.exports = { userRouter };

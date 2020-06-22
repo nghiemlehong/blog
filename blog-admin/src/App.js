@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Admin} from './component/Admin';
 import {Login} from './component/Login';
 import {Users} from './component/Users';
-import {Table} from './component/Table'
 import {Logout} from './component/Logout'
 import {NotFound} from './component/NotFound'
 import './css/main.css';
@@ -18,7 +17,6 @@ function App() {
       <Switch>
       <Route exact path="/" component={Login}/>
         <Route exact path="/users" component={Users}/>
-        <Route exact path="/table" component={Table}/>
         <Route exact path="/admin" component={Admin}/>
         <Route exact path="/logout" component={Logout}/>
         <Route exact path="/404" component={NotFound}/>
